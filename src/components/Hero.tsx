@@ -78,7 +78,7 @@ export function Hero() {
             {/* Image Container */}
             <div className="absolute inset-0 bg-slate-800 rounded-[2rem] overflow-hidden shadow-2xl border border-slate-700/50 group">
               <div className="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Udula Athulathmudali" className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" />
+              <img src="src\assets\profilePic\IMG_1938gg.JPG" alt="Udula Athulathmudali" className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" />
             </div>
           </div>
         </motion.div>

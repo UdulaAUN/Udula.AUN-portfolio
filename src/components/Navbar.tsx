@@ -56,7 +56,7 @@ export function Navbar() {
         }} className="text-slate-300 hover:text-blue-400 transition-colors font-medium text-sm uppercase tracking-wider">
               {link.name}
             </a>)}
-          <a href="/assets/cv/Udula_Athulathmudali_CV.pdf" download className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-all hover:shadow-lg hover:shadow-blue-500/25 transform hover:-translate-y-0.5">
+          <a href="src\assets\cv\Udula_Athulathmudali CV.pdf" download className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-all hover:shadow-lg hover:shadow-blue-500/25 transform hover:-translate-y-0.5">
             Download CV
           </a>
         </div>

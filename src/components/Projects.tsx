@@ -13,7 +13,19 @@ const projects = [{
   tags: ['React', 'Firebase', 'Tailwind CSS'],
   github: 'https://github.com/UdulaAUN',
   image: 'https://images.unsplash.com/photo-1540350394557-8d14678e7f91?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
-}, {
+},{
+  title: 'Task Management App',
+  description: 'A productivity tool for teams to track progress, assign tasks, and manage deadlines effectively.',
+  tags: ['React', 'Firebase', 'Tailwind CSS'],
+  github: 'https://github.com/UdulaAUN',
+  image: 'https://images.unsplash.com/photo-1540350394557-8d14678e7f91?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
+},{
+  title: 'Task Management App',
+  description: 'A productivity tool for teams to track progress, assign tasks, and manage deadlines effectively.',
+  tags: ['React', 'Firebase', 'Tailwind CSS'],
+  github: 'https://github.com/UdulaAUN',
+  image: 'https://images.unsplash.com/photo-1540350394557-8d14678e7f91?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
+},{
   title: 'Portfolio Website',
   description: 'A modern, responsive portfolio website to showcase skills and projects with smooth animations.',
   tags: ['React', 'Framer Motion', 'EmailJS'],
