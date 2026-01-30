@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
-const bars = Array.from({ length: 12 });
-const shards = Array.from({ length: 20 });
+const blocks = Array.from({ length: 15 });
+const lines = Array.from({ length: 20 });
 
 export function AnimatedBackground() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  // Springs for that snappy, mechanical feel
-  const smoothX = useSpring(mouseX, { damping: 30, stiffness: 200 });
-  const smoothY = useSpring(mouseY, { damping: 30, stiffness: 200 });
+  // Faster, snappier springs for a high-energy glitch feel
+  const smoothX = useSpring(mouseX, { damping: 20, stiffness: 150 });
+  const smoothY = useSpring(mouseY, { damping: 20, stiffness: 150 });
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      // Normalize mouse to -1 to 1
       const x = (e.clientX / window.innerWidth) * 2 - 1;
       const y = (e.clientY / window.innerHeight) * 2 - 1;
       mouseX.set(x);
@@ -26,89 +25,87 @@ export function AnimatedBackground() {
 
   return (
     <div className="fixed inset-0 z-0 overflow-hidden bg-slate-950 pointer-events-none isolate">
-      {/* 1. Base Noise Overlay */}
-      <div className="absolute inset-0 opacity-[0.07] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
+      {/* 1. High-Visibility Noise & Grain */}
+      <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] contrast-150 brightness-150 mix-blend-overlay" />
 
-      {/* 2. Reactive "Corrupted" Spotlight */}
+      {/* 2. Intense Mouse "Torch" - High Visibility Blue */}
       <motion.div
-        className="absolute inset-0 z-10"
+        className="absolute inset-0 z-10 mix-blend-screen"
         style={{
           background: useTransform(
             [smoothX, smoothY],
-            ([x, y]) => `radial-gradient(circle 350px at ${((x as number) + 1) * 50}% ${((y as number) + 1) * 50}%, rgba(79, 70, 229, 0.15), transparent 80%)`
+            ([x, y]) => `radial-gradient(circle 450px at ${((x as number) + 1) * 50}% ${((y as number) + 1) * 50}%, rgba(99, 102, 241, 0.25), transparent 80%)`
           )
         }}
       />
 
-      {/* 3. Mouse-Responsive "Magnetic Shards" */}
-      {shards.map((_, i) => (
+      {/* 3. Floating "Broken Data" Blocks - Sharp and Visible */}
+      {blocks.map((_, i) => (
         <motion.div
-          key={`shard-${i}`}
-          className="absolute h-[2px] w-[15px] bg-indigo-500/40"
+          key={`block-${i}`}
+          className="absolute border border-indigo-500/30 bg-indigo-500/10 backdrop-blur-[1px]"
           style={{
+            width: Math.random() * 150 + 40,
+            height: Math.random() * 80 + 10,
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
-            // Shards pull toward the mouse
-            x: useTransform(smoothX, [-1, 1], [Math.random() * -150, Math.random() * 150]),
-            y: useTransform(smoothY, [-1, 1], [Math.random() * -150, Math.random() * 150]),
+            x: useTransform(smoothX, [-1, 1], [Math.random() * -200, Math.random() * 200]),
+            y: useTransform(smoothY, [-1, 1], [Math.random() * -200, Math.random() * 200]),
           }}
           animate={{
-            opacity: [0.1, 0.5, 0.1],
-            scaleX: [1, 2, 1],
+            opacity: [0.1, 0.4, 0.1],
+            skewX: [0, 15, -15, 0],
           }}
           transition={{
-            duration: 2 + Math.random() * 2,
+            duration: 4 + Math.random() * 4,
             repeat: Infinity,
             ease: "easeInOut",
           }}
-        />
-      ))}
-
-      {/* 4. Glitchy Vertical Grid (Interacts with Mouse) */}
-      {bars.map((_, i) => (
-        <motion.div
-          key={`bar-${i}`}
-          className="absolute w-[1px] h-full bg-white/[0.03]"
-          style={{
-            left: `${(i * 100) / 12}%`,
-            // Bars skew slightly as mouse passes
-            skewX: useTransform(smoothX, [-1, 1], [i % 2 === 0 ? 5 : -5, i % 2 === 0 ? -5 : 5]),
-          }}
-        />
-      ))}
-
-      {/* 5. "Data Leak" Blocks (Randomly appear/flicker) */}
-      {[...Array(6)].map((_, i) => (
-        <motion.div
-          key={`leak-${i}`}
-          className="absolute bg-indigo-600/10 border-l border-indigo-500/50 text-[10px] font-mono text-indigo-400/20 px-2 py-1"
-          style={{
-            left: `${Math.random() * 80}%`,
-            top: `${Math.random() * 80}%`,
-          }}
-          animate={{
-            opacity: [0, 0.3, 0, 0.1, 0],
-            x: [0, 10, -10, 0],
-          }}
-          transition={{
-            duration: 0.2,
-            repeat: Infinity,
-            repeatDelay: Math.random() * 5,
-          }}
         >
-          RAW_DATA_{i}
+           <div className="w-full h-1 bg-indigo-500/40 absolute top-0" />
+           <span className="text-[9px] font-mono text-indigo-300/40 p-1 block">BLOCK_ERR_{i}</span>
         </motion.div>
       ))}
 
-      {/* 6. Vertical Scanning Line (CRT Style) */}
-      <motion.div 
-        className="absolute inset-0 w-full h-[100px] bg-gradient-to-b from-transparent via-indigo-500/[0.03] to-transparent pointer-events-none"
-        animate={{ y: ["-100%", "1000%"] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+      {/* 4. Moving Scanlines - Constant Motion */}
+      {lines.map((_, i) => (
+        <motion.div
+          key={`line-${i}`}
+          className="absolute h-[1px] w-full bg-indigo-400/20"
+          style={{
+            top: `${(i * 100) / 20}%`,
+          }}
+          animate={{
+            opacity: [0.05, 0.3, 0.05],
+            x: [-20, 20, -20],
+          }}
+          transition={{
+            duration: 2 + Math.random() * 3,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
+      ))}
+
+      {/* 5. Horizontal "Glitch Rip" Effect */}
+      <motion.div
+        className="absolute w-full h-[40px] bg-indigo-600/5 border-y border-indigo-500/20"
+        animate={{
+          top: ["-10%", "110%"],
+          skewY: [0, 2, -2, 0],
+        }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          ease: "linear",
+        }}
       />
 
-      {/* 7. Bottom Gradient to fade into content */}
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/50" />
+      {/* 6. Reactive Center Glow - Keeps the content area readable */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,rgba(2,6,23,0.8)_100%)]" />
+
+      {/* 7. CRT Jitter Effect (Optional) */}
+      <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%]" />
     </div>
   );
 }
