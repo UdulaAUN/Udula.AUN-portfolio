@@ -1,16 +1,28 @@
 import React, { useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
-const blocks = Array.from({ length: 15 });
-const lines = Array.from({ length: 20 });
+const starsTiny = Array.from({ length: 100 });
+const starsSmall = Array.from({ length: 60 });
+const starsMedium = Array.from({ length: 30 });
+const starsLarge = Array.from({ length: 10 });
 
 export function AnimatedBackground() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  // Faster, snappier springs for a high-energy glitch feel
-  const smoothX = useSpring(mouseX, { damping: 20, stiffness: 150 });
-  const smoothY = useSpring(mouseY, { damping: 20, stiffness: 150 });
+  const smoothMouseX = useSpring(mouseX, { damping: 50, stiffness: 300 });
+  const smoothMouseY = useSpring(mouseY, { damping: 50, stiffness: 300 });
+
+  // Parallax calculations
+  const parallaxXLarge = useTransform(smoothMouseX, [-1, 1], [-80, 80]);
+  const parallaxYLarge = useTransform(smoothMouseY, [-1, 1], [-80, 80]);
+  const parallaxXMedium = useTransform(smoothMouseX, [-1, 1], [-50, 50]);
+  const parallaxYMedium = useTransform(smoothMouseY, [-1, 1], [-50, 50]);
+  const parallaxXSmall = useTransform(smoothMouseX, [-1, 1], [-30, 30]);
+  const parallaxYSmall = useTransform(smoothMouseY, [-1, 1], [-30, 30]);
+
+  const nebulaX = useTransform(smoothMouseX, [-1, 1], ["-20%", "20%"]);
+  const nebulaY = useTransform(smoothMouseY, [-1, 1], ["-20%", "20%"]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -19,93 +31,135 @@ export function AnimatedBackground() {
       mouseX.set(x);
       mouseY.set(y);
     };
+
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [mouseX, mouseY]);
 
   return (
-    <div className="fixed inset-0 z-0 overflow-hidden bg-slate-950 pointer-events-none isolate">
-      {/* 1. High-Visibility Noise & Grain */}
-      <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] contrast-150 brightness-150 mix-blend-overlay" />
+    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none isolate bg-slate-950">
+      {/* Background Gradients */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-indigo-950/20 to-slate-950" />
 
-      {/* 2. Intense Mouse "Torch" - High Visibility Blue */}
+      {/* Nebula Layers */}
       <motion.div
-        className="absolute inset-0 z-10 mix-blend-screen"
+        className="absolute inset-0 opacity-30 mix-blend-screen pointer-events-none"
         style={{
-          background: useTransform(
-            [smoothX, smoothY],
-            ([x, y]) => `radial-gradient(circle 450px at ${((x as number) + 1) * 50}% ${((y as number) + 1) * 50}%, rgba(99, 102, 241, 0.25), transparent 80%)`
-          )
+          background: "radial-gradient(circle at 50% 50%, rgba(139,92,246,0.12) 0%, transparent 60%)",
+          x: nebulaX,
+          y: nebulaY,
+        }}
+      />
+      <motion.div
+        className="absolute inset-0 opacity-20 mix-blend-screen pointer-events-none"
+        style={{
+          background: "radial-gradient(circle at 30% 70%, rgba(34,211,238,0.08) 0%, transparent 70%)",
+          x: useTransform(smoothMouseX, [-1, 1], ["-15%", "15%"]),
+          y: useTransform(smoothMouseY, [-1, 1], ["-15%", "15%"]),
         }}
       />
 
-      {/* 3. Floating "Broken Data" Blocks - Sharp and Visible */}
-      {blocks.map((_, i) => (
-        <motion.div
-          key={`block-${i}`}
-          className="absolute border border-indigo-500/30 bg-indigo-500/10 backdrop-blur-[1px]"
+      {/* Tiny Stars */}
+      {starsTiny.map((_, i) => (
+        <motion.span
+          key={`t-${i}`}
+          className="absolute w-[1px] h-[1px] bg-white/50 rounded-full"
           style={{
-            width: Math.random() * 150 + 40,
-            height: Math.random() * 80 + 10,
-            left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
-            x: useTransform(smoothX, [-1, 1], [Math.random() * -200, Math.random() * 200]),
-            y: useTransform(smoothY, [-1, 1], [Math.random() * -200, Math.random() * 200]),
+            left: `${Math.random() * 100}%`,
+            x: useTransform(smoothMouseX, [-1, 1], [-15, 15]),
+            y: useTransform(smoothMouseY, [-1, 1], [-15, 15]),
           }}
           animate={{
-            opacity: [0.1, 0.4, 0.1],
-            skewX: [0, 15, -15, 0],
+            opacity: [0.2, 0.8, 0.2],
+            scale: [0.7, 1.3, 0.7],
           }}
           transition={{
-            duration: 4 + Math.random() * 4,
+            duration: 2 + Math.random() * 2.5,
             repeat: Infinity,
             ease: "easeInOut",
-          }}
-        >
-           <div className="w-full h-1 bg-indigo-500/40 absolute top-0" />
-           <span className="text-[9px] font-mono text-indigo-300/40 p-1 block">BLOCK_ERR_{i}</span>
-        </motion.div>
-      ))}
-
-      {/* 4. Moving Scanlines - Constant Motion */}
-      {lines.map((_, i) => (
-        <motion.div
-          key={`line-${i}`}
-          className="absolute h-[1px] w-full bg-indigo-400/20"
-          style={{
-            top: `${(i * 100) / 20}%`,
-          }}
-          animate={{
-            opacity: [0.05, 0.3, 0.05],
-            x: [-20, 20, -20],
-          }}
-          transition={{
-            duration: 2 + Math.random() * 3,
-            repeat: Infinity,
-            ease: "linear",
+            delay: Math.random() * 2,
           }}
         />
       ))}
 
-      {/* 5. Horizontal "Glitch Rip" Effect */}
-      <motion.div
-        className="absolute w-full h-[40px] bg-indigo-600/5 border-y border-indigo-500/20"
-        animate={{
-          top: ["-10%", "110%"],
-          skewY: [0, 2, -2, 0],
-        }}
-        transition={{
-          duration: 12,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-      />
+      {/* Small Stars */}
+      {starsSmall.map((_, i) => (
+        <motion.span
+          key={`s-${i}`}
+          className="absolute w-[1.5px] h-[1.5px] bg-blue-100/60 rounded-full"
+          style={{
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+            x: parallaxXSmall,
+            y: parallaxYSmall,
+          }}
+          animate={{
+            y: [0, -35, 0],
+            opacity: [0.4, 1, 0.4],
+            scale: [1, 1.3, 1],
+          }}
+          transition={{
+            duration: 5 + Math.random() * 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: Math.random() * 3,
+          }}
+        />
+      ))}
 
-      {/* 6. Reactive Center Glow - Keeps the content area readable */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,rgba(2,6,23,0.8)_100%)]" />
+      {/* Medium Stars */}
+      {starsMedium.map((_, i) => (
+        <motion.span
+          key={`m-${i}`}
+          className="absolute w-[2.5px] h-[2.5px] bg-indigo-200/70 rounded-full blur-[0.5px]"
+          style={{
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+            x: parallaxXMedium,
+            y: parallaxYMedium,
+          }}
+          animate={{
+            y: [0, -60, 0],
+            opacity: [0.5, 1, 0.5],
+            scale: [1, 1.4, 1],
+          }}
+          transition={{
+            duration: 7 + Math.random() * 5,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: Math.random() * 4,
+          }}
+        />
+      ))}
 
-      {/* 7. CRT Jitter Effect (Optional) */}
-      <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%]" />
+      {/* Large Stars */}
+      {starsLarge.map((_, i) => (
+        <motion.span
+          key={`l-${i}`}
+          className="absolute w-[4px] h-[4px] bg-white/85 rounded-full blur-[1px] shadow-[0_0_12px_rgba(255,255,255,0.8)]"
+          style={{
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+            x: parallaxXLarge,
+            y: parallaxYLarge,
+          }}
+          animate={{
+            y: [0, -90, 0],
+            opacity: [0.6, 1, 0.6],
+            scale: [1, 1.5, 1],
+          }}
+          transition={{
+            duration: 9 + Math.random() * 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: Math.random() * 5,
+          }}
+        />
+      ))}
+
+      {/* Final Fade Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-slate-950/30 pointer-events-none" />
     </div>
   );
 }

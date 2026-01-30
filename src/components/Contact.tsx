@@ -38,21 +38,11 @@ export function Contact() {
     setStatus('idle');
     setErrorMessage('');
 
-    const SERVICE_ID = 'YOUR_SERVICE_ID';
-    const TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-    const PUBLIC_KEY = 'YOUR_PUBLIC_KEY';
+    const SERVICE_ID = 'service_h5oxn1l';
+    const TEMPLATE_ID = 'template_sdh30dh';
+    const PUBLIC_KEY = 'M61Y-ldMBgcZmiEOT';
 
     if (!formRef.current) return;
-
-    // demo mode
-    if (SERVICE_ID === 'YOUR_SERVICE_ID') {
-      setTimeout(() => {
-        setIsLoading(false);
-        setStatus('success');
-        formRef.current?.reset();
-      }, 1200);
-      return;
-    }
 
     emailjs
       .sendForm(SERVICE_ID, TEMPLATE_ID, formRef.current, PUBLIC_KEY)
@@ -61,17 +51,16 @@ export function Contact() {
         setStatus('success');
         formRef.current?.reset();
       })
-      .catch(() => {
+      .catch((error) => {
         setIsLoading(false);
         setStatus('error');
-        setErrorMessage('Failed to send. Please try again.');
+        setErrorMessage(error?.text || 'Failed to send. Please try again.');
       });
   };
 
   return (
     <section id="contact" className="py-20 md:py-28">
       <div className="max-w-5xl mx-auto px-5 sm:px-6">
-        {/* heading */}
         <div className="text-center mb-14">
           <h2 className="text-4xl font-bold text-white mb-4">
             Get In Touch
@@ -138,7 +127,7 @@ export function Contact() {
                 whileTap={{ scale: 0.97 }}
                 disabled={isLoading}
                 type="submit"
-                className="w-full py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-medium flex items-center justify-center gap-2"
+                className="w-full py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-medium flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
               >
                 {isLoading ? (
                   <>
@@ -152,14 +141,14 @@ export function Contact() {
               </motion.button>
 
               {status === 'success' && (
-                <div className="text-green-400 flex gap-2 items-center">
-                  <CheckCircle /> Message sent!
+                <div className="text-green-400 flex gap-2 items-center justify-center bg-green-400/10 py-2 rounded-lg border border-green-400/20">
+                  <CheckCircle className="w-5 h-5" /> Message sent!
                 </div>
               )}
 
               {status === 'error' && (
-                <div className="text-red-400 flex gap-2 items-center">
-                  <AlertCircle /> {errorMessage}
+                <div className="text-red-400 flex gap-2 items-center justify-center bg-red-400/10 py-2 rounded-lg border border-red-400/20">
+                  <AlertCircle className="w-5 h-5" /> {errorMessage}
                 </div>
               )}
             </form>
@@ -210,7 +199,7 @@ function FloatingInput({
 
   return (
     <div className="relative">
-      <motion.input
+      <input
         name={name}
         type={type}
         required
@@ -218,14 +207,14 @@ function FloatingInput({
         onChange={(e) => setValue(e.target.value)}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        whileHover={{ y: -1 }}
-        className="w-full px-4 pt-6 pb-2 bg-slate-950 border border-slate-700 rounded-lg text-white transition-all hover:border-blue-500/50 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
+        style={{ colorScheme: 'dark' }} // Force browser internal tools to dark mode
+        className="w-full px-4 pt-6 pb-2 bg-slate-950 border border-slate-700 rounded-lg text-white transition-all focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30"
       />
 
       <motion.label
         animate={{
-          y: focused || value ? -6 : 10,
-          scale: focused || value ? 0.85 : 1,
+          y: (focused || value) ? -6 : 10,
+          scale: (focused || value) ? 0.8 : 1,
           color: focused ? '#60a5fa' : '#94a3b8',
         }}
         transition={{ duration: 0.2 }}
@@ -249,7 +238,7 @@ function FloatingTextarea({
 
   return (
     <div className="relative">
-      <motion.textarea
+      <textarea
         name={name}
         rows={5}
         required
@@ -257,14 +246,14 @@ function FloatingTextarea({
         onChange={(e) => setValue(e.target.value)}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        whileHover={{ y: -1 }}
-        className="w-full px-4 pt-6 pb-2 bg-slate-950 border border-slate-700 rounded-lg text-white resize-none transition-all hover:border-blue-500/50 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30"
+        style={{ colorScheme: 'dark' }}
+        className="w-full px-4 pt-6 pb-2 bg-slate-950 border border-slate-700 rounded-lg text-white resize-none transition-all focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30"
       />
 
       <motion.label
         animate={{
-          y: focused || value ? -6 : 10,
-          scale: focused || value ? 0.85 : 1,
+          y: (focused || value) ? -6 : 10,
+          scale: (focused || value) ? 0.8 : 1,
           color: focused ? '#60a5fa' : '#94a3b8',
         }}
         transition={{ duration: 0.2 }}
