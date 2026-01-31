@@ -2,16 +2,16 @@ import React from 'react';
 import { ScrollReveal } from './ui/ScrollReveal';
 import { Github, ExternalLink } from 'lucide-react';
 const projects = [{
-  title: 'E-Commerce Platform',
-  description: 'A full-featured online store with product filtering, cart functionality, and secure checkout integration.',
-  tags: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-  github: 'https://github.com/UdulaAUN',
+  title: 'Udula.dev',
+  description: 'A modern, responsive portfolio website to showcase skills and projects with smooth animations.',
+  tags: ['React', 'Tailwind CSS', 'TypeScript'],
+  github: 'https://github.com/UdulaAUN/Portfolio.git',
   image: 'https://images.unsplash.com/photo-1557821552-17105176677c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
 }, {
-  title: 'Task Management App',
-  description: 'A productivity tool for teams to track progress, assign tasks, and manage deadlines effectively.',
-  tags: ['React', 'Firebase', 'Tailwind CSS'],
-  github: 'https://github.com/UdulaAUN',
+  title: 'Servio',
+  description: 'A full stack automotive platform with real time tracking and offline sync to streamline vehicle service management. 🚗💻',
+  tags: ['React', 'Node.js','Express.js','Firebase', 'Tailwind CSS'],
+  github: 'https://github.com/UdulaAUN/ServioCarService11.git',
   image: 'https://images.unsplash.com/photo-1540350394557-8d14678e7f91?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
 },{
   title: 'Task Management App',
@@ -20,10 +20,10 @@ const projects = [{
   github: 'https://github.com/UdulaAUN',
   image: 'https://images.unsplash.com/photo-1540350394557-8d14678e7f91?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
 },{
-  title: 'Task Management App',
-  description: 'A productivity tool for teams to track progress, assign tasks, and manage deadlines effectively.',
-  tags: ['React', 'Firebase', 'Tailwind CSS'],
-  github: 'https://github.com/UdulaAUN',
+  title: 'Belleza-Fashion-Store',
+  description: 'A full featured online store with product filtering, cart functionality, and secure checkout integration.',
+  tags: ['PHP', 'JavaScript', 'CSS', 'HTML', 'MySQL'],
+  github: 'https://github.com/UdulaAUN/Belleza-Fashion-Store.git',
   image: 'https://images.unsplash.com/photo-1540350394557-8d14678e7f91?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
 },{
   title: 'Portfolio Website',
