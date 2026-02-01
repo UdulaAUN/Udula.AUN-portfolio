@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollReveal } from "./ui/ScrollReveal";
 
-/* Brand icons - Keeping all your imports */
+/* Brand icons */
 import {
   FaReact, FaNodeJs, FaJava, FaPython, FaPhp, FaGitAlt, FaGithub, FaAndroid,
 } from "react-icons/fa";
@@ -13,7 +13,6 @@ import { BsPeople, BsChatDots, BsClock } from "react-icons/bs";
 import { AiOutlineApi } from "react-icons/ai";
 
 export function Skills() {
-  // Hardcoded data inside to prevent "Mapping over undefined" errors
   const skillCategories = [
     {
       title: "Frontend Development",
@@ -82,10 +81,13 @@ export function Skills() {
               Skills & Expertise
             </h2>
             <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full" />
+            {/* THE MISSING SENTENCE IS BACK */}
+            <p className="mt-4 text-slate-400 max-w-2xl mx-auto text-lg">
+              Technologies and abilities I work with confidently.
+            </p>
           </div>
         </ScrollReveal>
 
-        {/* NEW FORMAT: Two Large Columns of Categories */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-16">
           {skillCategories.map((category) => (
             <div key={category.title} className="flex flex-col">
@@ -96,11 +98,9 @@ export function Skills() {
                 </h3>
               </ScrollReveal>
 
-              {/* Your original boxes inside the new grid format */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {category.skills.map((skill, index) => (
                   <ScrollReveal key={skill.name} delay={index * 0.03}>
-                    {/* ORIGINAL BOX - DO NOT TOUCH */}
                     <div className="group relative overflow-hidden rounded-xl border border-slate-800 bg-gradient-to-br from-slate-900/60 to-slate-950/60 p-5 transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/40">
                       <span className="absolute bottom-0 left-0 h-1 w-full bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                       <div className="flex items-center gap-4">
@@ -119,7 +119,6 @@ export function Skills() {
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );
