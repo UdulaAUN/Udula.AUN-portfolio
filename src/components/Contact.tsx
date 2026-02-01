@@ -10,6 +10,7 @@ import {
   AlertCircle,
   Github,
   Linkedin,
+  Instagram, // Added Instagram
 } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 
@@ -59,7 +60,6 @@ export function Contact() {
     <section id="contact" className="py-20 md:py-28 overflow-hidden">
       <div className="max-w-5xl mx-auto px-5 sm:px-6">
         
-        {/* 1. Scroll Entrance for Header */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -76,7 +76,6 @@ export function Contact() {
 
         <div className="grid md:grid-cols-2 gap-12">
           
-          {/* 2. Scroll Entrance for Left Column */}
           <motion.div 
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -106,13 +105,14 @@ export function Contact() {
               />
             </div>
 
+            {/* UPDATED SOCIAL ICONS ROW */}
             <div className="flex gap-4 pt-4">
               <SocialIcon href="https://github.com/UdulaAUN" icon={<Github className="w-6 h-6" />} />
               <SocialIcon href="https://www.linkedin.com/in/udula-athulathmudali" icon={<Linkedin className="w-6 h-6" />} />
+              <SocialIcon href="https://www.instagram.com/udula_athulathmudali?igsh=MW1vZmJtMnE4MnBhZQ==" icon={<Instagram className="w-6 h-6" />} />
             </div>
           </motion.div>
 
-          {/* 3. Scroll Entrance for Right Column (Form) */}
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -130,13 +130,21 @@ export function Contact() {
                 whileTap={{ scale: 0.97 }}
                 disabled={isLoading}
                 type="submit"
-                className="w-full py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-medium flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
+                className="group relative w-full py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-medium flex items-center justify-center gap-2 transition-colors disabled:opacity-50 overflow-hidden"
               >
-                {isLoading ? (
-                  <><Loader2 className="w-5 h-5 animate-spin" /> Sending</>
-                ) : (
-                  <><Send className="w-5 h-5" /> Send Message</>
-                )}
+                <span className="relative z-10 flex items-center gap-2">
+                  {isLoading ? (
+                    <><Loader2 className="w-5 h-5 animate-spin" /> Sending</>
+                  ) : (
+                    <><Send className="w-5 h-5" /> Send Message</>
+                  )}
+                </span>
+                {/* Internal ripple for the Submit button */}
+                <motion.div 
+                   initial={{ scale: 0, opacity: 0 }}
+                   whileTap={{ scale: 4, opacity: 1 }}
+                   className="absolute inset-0 bg-white/20 rounded-lg"
+                />
               </motion.button>
 
               {status === 'success' && (
@@ -153,7 +161,7 @@ export function Contact() {
 }
 
 /* ======================
-   HELPERS (Strictly following your first version's logic)
+   HELPERS
 ====================== */
 
 function InfoCard({ icon, label, value, href }: any) {
@@ -192,7 +200,7 @@ function FloatingInput({ name, type = 'text', label }: { name: string; type?: st
         onChange={(e) => setValue(e.target.value)}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        style={{ colorScheme: 'dark' }} // Re-added exactly as per your first version
+        style={{ colorScheme: 'dark' }} 
         className="w-full px-4 pt-6 pb-2 bg-slate-950 border border-slate-700 rounded-lg text-white transition-all focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30"
       />
       <motion.label
@@ -224,7 +232,7 @@ function FloatingTextarea({ name, label }: { name: string; label: string }) {
         onChange={(e) => setValue(e.target.value)}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        style={{ colorScheme: 'dark' }} // Re-added exactly as per your first version
+        style={{ colorScheme: 'dark' }} 
         className="w-full px-4 pt-6 pb-2 bg-slate-950 border border-slate-700 rounded-lg text-white resize-none transition-all focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30"
       />
       <motion.label
@@ -242,15 +250,24 @@ function FloatingTextarea({ name, label }: { name: string; label: string }) {
   );
 }
 
+// Updated SocialIcon with the Ripple Animation
 function SocialIcon({ href, icon }: any) {
   return (
     <motion.a
       href={href}
       target="_blank"
-      whileHover={{ y: -2 }}
-      className="p-3 bg-slate-900/50 border border-slate-700 rounded-lg hover:bg-blue-600/30 transition-all text-white"
+      whileHover={{ y: -3 }}
+      whileTap={{ scale: 0.9 }}
+      className="relative p-3 bg-slate-900/50 border border-slate-700 rounded-lg hover:bg-blue-600/20 hover:border-blue-500 transition-all text-white overflow-hidden group"
     >
-      {icon}
+      <span className="relative z-10">{icon}</span>
+      {/* Internal ripple burst */}
+      <motion.div 
+        initial={{ scale: 0, opacity: 0 }}
+        whileTap={{ scale: 3, opacity: 1 }}
+        transition={{ duration: 0.3 }}
+        className="absolute inset-0 bg-blue-500/40 rounded-full"
+      />
     </motion.a>
   );
 }

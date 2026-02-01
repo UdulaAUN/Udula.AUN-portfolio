@@ -1,9 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Github, Linkedin, Instagram, Code2, Send } from 'lucide-react';
+import { Github, Linkedin, Instagram, Code2, Send } from 'lucide-react';
 
 export function Hero() {
-  // Use the same logic from your Navbar for consistent scrolling
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
@@ -35,7 +34,7 @@ export function Hero() {
 
           <h1 className="text-5xl md:text-6xl lg:text-6xl font-bold text-white mb-6 leading-[1.1] tracking-tight">
             Hi, I'm <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-purple-500 animate-gradient-x">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-purple-500">
               Udula Athulathmudali
             </span>
           </h1>
@@ -43,47 +42,64 @@ export function Hero() {
           <p className="text-slate-400 text-lg md:text-xl mb-8 max-w-xl mx-auto md:mx-0 leading-relaxed">
             Aspiring Software Engineer & Web Developer.
             I build modern, responsive web applications 
-            with a focus on clean code, performance, and 
-            user experience.
+            with a focus on clean code and user experience.
           </p>
 
-          {/* REDESIGNED BUTTONS WITH SMOOTH SCROLL */}
+          {/* Main Buttons */}
           <div className="flex flex-wrap justify-center md:justify-start gap-4 mb-10">
-            <button 
+            <motion.button 
               onClick={() => scrollToSection('#contact')}
-              className="group px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-all hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center gap-2"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="group relative px-8 py-3.5 bg-blue-600 text-white rounded-full font-bold overflow-hidden transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)]"
             >
-              Let's Talk
-              <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-            </button>
+              <span className="relative z-10 flex items-center gap-2">
+                Let's Talk <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </span>
+              <motion.div 
+                initial={{ scale: 0, opacity: 0 }}
+                whileTap={{ scale: 4, opacity: 1 }}
+                transition={{ duration: 0.4 }}
+                className="absolute inset-0 bg-white/20 rounded-full"
+              />
+            </motion.button>
 
-            <button 
+            <motion.button 
               onClick={() => scrollToSection('#projects')}
-              className="px-8 py-3.5 bg-slate-800/40 hover:bg-slate-800 text-white rounded-xl font-bold transition-all border border-slate-700 hover:border-blue-500/50 backdrop-blur-sm flex items-center gap-2"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="group relative px-8 py-3.5 bg-slate-800/40 text-white rounded-full font-bold border border-slate-700 backdrop-blur-sm overflow-hidden transition-all"
             >
-              <Code2 className="w-5 h-5 text-blue-400" />
-              My Projects
-            </button>
+              <span className="relative z-10 flex items-center gap-2">
+                <Code2 className="w-5 h-5 text-blue-400" /> My Projects
+              </span>
+              <motion.div 
+                initial={{ scale: 0, opacity: 0 }}
+                whileTap={{ scale: 4, opacity: 1 }}
+                transition={{ duration: 0.4 }}
+                className="absolute inset-0 bg-blue-500/20 rounded-full"
+              />
+            </motion.button>
           </div>
 
+          {/* SOCIAL LINKS WITH RIPPLE */}
           <div className="flex justify-center md:justify-start items-center gap-6">
-            <SocialLink href="https://github.com/UdulaAUN" icon={<Github className="w-5 h-5" />} label="GitHub" />
-            <SocialLink href="https://www.linkedin.com/in/udula-athulathmudali" icon={<Linkedin className="w-5 h-5" />} label="LinkedIn" />
+            <SocialLink href="https://github.com/UdulaAUN" icon={<Github size={20} />} label="GitHub" />
+            <SocialLink href="https://www.linkedin.com/in/udula-athulathmudali" icon={<Linkedin size={20} />} label="LinkedIn" />
             <SocialLink 
               href="https://www.instagram.com/udula_athulathmudali?igsh=MW1vZmJtMnE4MnBhZQ==" 
-              icon={<Instagram className="w-5 h-5" />} 
+              icon={<Instagram size={20} />} 
               label="Instagram" 
             />
           </div>
         </motion.div>
 
-        {/* Profile Image - Kept exactly as you had it */}
+        {/* Profile Image Area */}
         <motion.div className="order-1 md:order-2 relative" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.2 }}>
           <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-[400px] md:h-[400px] lg:w-[450px] lg:h-[450px] mx-auto">
             <div className="absolute inset-0 bg-gradient-to-tr from-blue-600 to-purple-600 rounded-[2rem] rotate-6 opacity-20 blur-2xl animate-pulse" />
             <div className="absolute inset-0 border-2 border-slate-700/50 rounded-[2rem] rotate-3" />
             <div className="absolute inset-0 bg-slate-800 rounded-[2rem] overflow-hidden shadow-2xl border border-slate-700/50 group">
-              <div className="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
               <img src="src/assets/profilePic/IMG_1938gg.JPG" alt="Udula Athulathmudali" className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" />
             </div>
           </div>
@@ -93,12 +109,29 @@ export function Hero() {
   );
 }
 
+// REACTIVE SOCIAL LINK COMPONENT
 function SocialLink({ href, icon, label }: { href: string; icon: React.ReactNode; label: string; }) {
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-900/50 text-slate-400 hover:text-white hover:bg-blue-600 hover:border-blue-500 rounded-full transition-all border border-slate-800 backdrop-blur-sm group" aria-label={label}>
-      <span className="group-hover:scale-110 block transition-transform">
+    <motion.a 
+      href={href} 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      whileHover={{ y: -5 }}
+      whileTap={{ scale: 0.9 }}
+      className="relative p-3 bg-slate-900/50 text-slate-400 hover:text-white hover:bg-blue-600/20 hover:border-blue-500 rounded-full transition-all border border-slate-800 backdrop-blur-sm group overflow-hidden" 
+      aria-label={label}
+    >
+      <span className="relative z-10 block transition-transform group-hover:scale-110">
         {icon}
       </span>
-    </a>
+      
+      {/* Internal Ripple Effect for Icons */}
+      <motion.div 
+        initial={{ scale: 0, opacity: 0 }}
+        whileTap={{ scale: 2, opacity: 1 }}
+        transition={{ duration: 0.3 }}
+        className="absolute inset-0 bg-blue-500/40 rounded-full"
+      />
+    </motion.a>
   );
 }
