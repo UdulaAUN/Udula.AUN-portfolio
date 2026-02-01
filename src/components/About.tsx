@@ -17,23 +17,19 @@ export function About() {
           <ScrollReveal>
             <div className="space-y-6 text-slate-300 text-lg leading-relaxed">
               <p>
-                Hello! I'm Udula Athulathmudali, a passionate Software Engineer
-                with a strong foundation in building scalable web applications.
-                My journey in tech is driven by a curiosity to understand how
-                things work under the hood and a desire to create impactful
-                solutions.
+                I’m Udula, an Information Technology undergraduate 
+                with a strong passion for software engineering and web development.
+                I enjoy building clean, user friendly applications and understanding 
+                 how systems work both on the frontend and behind the scenes.
               </p>
               <p>
-                I specialize in modern frontend technologies and have experience
-                working with the full software development lifecycle. Whether
-                it's crafting pixel-perfect user interfaces or optimizing
-                backend performance, I approach every challenge with a
-                problem-solving mindset.
+                With a strong foundation in frontend and full stack web development, 
+                I’m passionate about building modern, responsive applications that 
+                focus on performance, usability, and clean design.
               </p>
               <p>
-                When I'm not coding, I'm constantly learning new technologies,
-                contributing to open source, or exploring the latest trends in
-                the tech industry.
+                Beyond coding, I enjoy learning new technologies, building personal projects, 
+                and staying updated with the latest industry trends.
               </p>
             </div>
           </ScrollReveal>

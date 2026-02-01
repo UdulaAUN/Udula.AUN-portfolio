@@ -54,7 +54,7 @@ export function Projects() {
             <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full" />
             <p className="mt-4 text-slate-400 max-w-2xl mx-auto">
               A selection of projects that demonstrate my ability to solve
-              problems and build high-quality software.
+              problems and build high quality software.
             </p>
           </div>
         </ScrollReveal>

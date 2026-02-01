@@ -23,9 +23,6 @@ function mouseFollow(e: React.MouseEvent<HTMLElement>, strength = 12) {
   return { x, y };
 }
 
-/* ======================
-   component
-====================== */
 export function Contact() {
   const formRef = useRef<HTMLFormElement>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -59,25 +56,35 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 md:py-28">
+    <section id="contact" className="py-20 md:py-28 overflow-hidden">
       <div className="max-w-5xl mx-auto px-5 sm:px-6">
-        <div className="text-center mb-14">
-          <h2 className="text-4xl font-bold text-white mb-4">
-            Get In Touch
-          </h2>
+        
+        {/* 1. Scroll Entrance for Header */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-14"
+        >
+          <h2 className="text-4xl font-bold text-white mb-4">Get In Touch</h2>
           <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full mb-6" />
           <p className="text-slate-400 max-w-2xl mx-auto">
             Have a project in mind or just want to say hi? I’d love to hear from you.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid md:grid-cols-2 gap-12">
-          {/* LEFT */}
-          <div className="space-y-8">
-            <h3 className="text-2xl font-semibold text-white">
-              Contact Information
-            </h3>
-
+          
+          {/* 2. Scroll Entrance for Left Column */}
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="space-y-8"
+          >
+            <h3 className="text-2xl font-semibold text-white">Contact Information</h3>
             <div className="space-y-4">
               <InfoCard
                 icon={<Mail className="w-6 h-6 text-blue-400" />}
@@ -100,26 +107,22 @@ export function Contact() {
             </div>
 
             <div className="flex gap-4 pt-4">
-              <SocialIcon
-                href="https://github.com/UdulaAUN"
-                icon={<Github className="w-6 h-6" />}
-              />
-              <SocialIcon
-                href="https://www.linkedin.com/in/udula-athulathmudali"
-                icon={<Linkedin className="w-6 h-6" />}
-              />
+              <SocialIcon href="https://github.com/UdulaAUN" icon={<Github className="w-6 h-6" />} />
+              <SocialIcon href="https://www.linkedin.com/in/udula-athulathmudali" icon={<Linkedin className="w-6 h-6" />} />
             </div>
-          </div>
+          </motion.div>
 
-          {/* RIGHT */}
-          <div className="bg-slate-900/60 backdrop-blur-xl p-8 rounded-2xl border border-slate-700/50">
+          {/* 3. Scroll Entrance for Right Column (Form) */}
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="bg-slate-900/60 backdrop-blur-xl p-8 rounded-2xl border border-slate-700/50"
+          >
             <form ref={formRef} onSubmit={sendEmail} className="space-y-6">
               <FloatingInput name="user_name" label="Your Name" />
-              <FloatingInput
-                name="user_email"
-                type="email"
-                label="Email Address"
-              />
+              <FloatingInput name="user_email" type="email" label="Email Address" />
               <FloatingTextarea name="message" label="Your Message" />
 
               <motion.button
@@ -130,13 +133,9 @@ export function Contact() {
                 className="w-full py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-medium flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
               >
                 {isLoading ? (
-                  <>
-                    <Loader2 className="w-5 h-5 animate-spin" /> Sending
-                  </>
+                  <><Loader2 className="w-5 h-5 animate-spin" /> Sending</>
                 ) : (
-                  <>
-                    <Send className="w-5 h-5" /> Send Message
-                  </>
+                  <><Send className="w-5 h-5" /> Send Message</>
                 )}
               </motion.button>
 
@@ -145,14 +144,8 @@ export function Contact() {
                   <CheckCircle className="w-5 h-5" /> Message sent!
                 </div>
               )}
-
-              {status === 'error' && (
-                <div className="text-red-400 flex gap-2 items-center justify-center bg-red-400/10 py-2 rounded-lg border border-red-400/20">
-                  <AlertCircle className="w-5 h-5" /> {errorMessage}
-                </div>
-              )}
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -160,7 +153,7 @@ export function Contact() {
 }
 
 /* ======================
-   helpers
+   HELPERS (Strictly following your first version's logic)
 ====================== */
 
 function InfoCard({ icon, label, value, href }: any) {
@@ -185,15 +178,7 @@ function InfoCard({ icon, label, value, href }: any) {
   );
 }
 
-function FloatingInput({
-  name,
-  type = 'text',
-  label,
-}: {
-  name: string;
-  type?: string;
-  label: string;
-}) {
+function FloatingInput({ name, type = 'text', label }: { name: string; type?: string; label: string }) {
   const [focused, setFocused] = useState(false);
   const [value, setValue] = useState('');
 
@@ -207,10 +192,9 @@ function FloatingInput({
         onChange={(e) => setValue(e.target.value)}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        style={{ colorScheme: 'dark' }} // Force browser internal tools to dark mode
+        style={{ colorScheme: 'dark' }} // Re-added exactly as per your first version
         className="w-full px-4 pt-6 pb-2 bg-slate-950 border border-slate-700 rounded-lg text-white transition-all focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30"
       />
-
       <motion.label
         animate={{
           y: (focused || value) ? -6 : 10,
@@ -226,13 +210,7 @@ function FloatingInput({
   );
 }
 
-function FloatingTextarea({
-  name,
-  label,
-}: {
-  name: string;
-  label: string;
-}) {
+function FloatingTextarea({ name, label }: { name: string; label: string }) {
   const [focused, setFocused] = useState(false);
   const [value, setValue] = useState('');
 
@@ -246,10 +224,9 @@ function FloatingTextarea({
         onChange={(e) => setValue(e.target.value)}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        style={{ colorScheme: 'dark' }}
+        style={{ colorScheme: 'dark' }} // Re-added exactly as per your first version
         className="w-full px-4 pt-6 pb-2 bg-slate-950 border border-slate-700 rounded-lg text-white resize-none transition-all focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30"
       />
-
       <motion.label
         animate={{
           y: (focused || value) ? -6 : 10,
@@ -271,7 +248,7 @@ function SocialIcon({ href, icon }: any) {
       href={href}
       target="_blank"
       whileHover={{ y: -2 }}
-      className="p-3 bg-slate-900/50 border border-slate-700 rounded-lg hover:bg-blue-600/30 transition-all"
+      className="p-3 bg-slate-900/50 border border-slate-700 rounded-lg hover:bg-blue-600/30 transition-all text-white"
     >
       {icon}
     </motion.a>
