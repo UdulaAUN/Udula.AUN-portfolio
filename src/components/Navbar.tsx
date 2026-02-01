@@ -44,7 +44,7 @@ export function Navbar() {
       }} className="flex items-center gap-2 text-2xl font-bold text-white group">
           <Code2 className="w-8 h-8 text-blue-500 group-hover:rotate-12 transition-transform" />
           <span>
-            Udula<span className="text-blue-500">.</span>dev
+            Udula<span className="text-blue-500">.</span>AUN
           </span>
         </a>
 

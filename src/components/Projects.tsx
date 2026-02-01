@@ -4,7 +4,7 @@ import { Github, ExternalLink, Figma } from 'lucide-react';
 
 const projects = [
   {
-    title: 'Udula.dev',
+    title: 'Udula.AUN',
     description: 'A modern, responsive portfolio website to showcase skills and projects with smooth animations.',
     tags: ['React', 'Tailwind CSS', 'TypeScript'],
     github: 'https://github.com/UdulaAUN/Portfolio.git',
