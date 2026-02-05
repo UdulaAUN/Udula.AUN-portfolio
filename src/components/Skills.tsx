@@ -57,6 +57,7 @@ export function Skills() {
       title: "System Programming",
       skills: [
         { name: "C", icon: <SiC className="w-8 h-8 text-slate-400" /> },
+        { name: "C", icon: <SiC className="w-8 h-8 text-slate-400" /> },
         { name: "C++", icon: <SiCplusplus className="w-8 h-8 text-blue-600" /> },
       ],
     },
