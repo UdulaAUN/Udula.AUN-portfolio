@@ -13,7 +13,7 @@ const projects = [
   },
   {
     title: 'Servio',
-    description: 'A full stack automotive platform with real time tracking and offline sync to streamline vehicle service management. 🚗💻',
+    description: 'A full stack automotive platform with real time tracking and offline sync to streamline vehicle service management. ',
     tags: ['React', 'Node.js', 'Express.js', 'Firebase', 'Tailwind CSS'],
     github: 'https://github.com/UdulaAUN/ServioCarService11.git',
     image: 'src/assets/projectImage/servio.png'

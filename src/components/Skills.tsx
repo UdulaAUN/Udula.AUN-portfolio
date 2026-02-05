@@ -6,7 +6,9 @@ import {
   FaReact, FaNodeJs, FaJava, FaPython, FaPhp, FaGitAlt, FaGithub, FaAndroid,
 } from "react-icons/fa";
 import {
-  SiJavascript, SiHtml5, SiCss3, SiTailwindcss, SiVite, SiExpress, SiMongodb, SiMysql, SiFirebase, SiKotlin, SiVscodium, SiFigma,
+  SiJavascript, SiHtml5, SiCss3, SiTailwindcss, SiVite, SiExpress, SiMongodb, 
+  SiMysql, SiFirebase, SiKotlin, SiVscodium, SiFigma, 
+  SiC, SiCplusplus 
 } from "react-icons/si";
 import { TbPuzzle } from "react-icons/tb";
 import { BsPeople, BsChatDots, BsClock } from "react-icons/bs";
@@ -52,6 +54,13 @@ export function Skills() {
       ],
     },
     {
+      title: "System Programming",
+      skills: [
+        { name: "C", icon: <SiC className="w-8 h-8 text-slate-400" /> },
+        { name: "C++", icon: <SiCplusplus className="w-8 h-8 text-blue-600" /> },
+      ],
+    },
+    {
       title: "Tools & Workflow",
       skills: [
         { name: "Git", icon: <FaGitAlt className="w-8 h-8 text-orange-500" /> },
@@ -74,14 +83,12 @@ export function Skills() {
   return (
     <section id="skills" className="py-24 relative z-10">
       <div className="max-w-7xl mx-auto px-6">
-
         <ScrollReveal width="100%">
           <div className="text-center mb-20">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Skills & Expertise
             </h2>
             <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full" />
-            {/* THE MISSING SENTENCE IS BACK */}
             <p className="mt-4 text-slate-400 max-w-2xl mx-auto text-lg">
               Technologies and abilities I work with confidently.
             </p>
@@ -103,14 +110,17 @@ export function Skills() {
                   <ScrollReveal key={skill.name} delay={index * 0.03}>
                     <div className="group relative overflow-hidden rounded-xl border border-slate-800 bg-gradient-to-br from-slate-900/60 to-slate-950/60 p-5 transition-all duration-300 hover:-translate-y-1 hover:border-blue-500/40">
                       <span className="absolute bottom-0 left-0 h-1 w-full bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                      
                       <div className="flex items-center gap-4">
                         <div className="p-3 rounded-lg bg-slate-900 border border-slate-800 transition-transform duration-300 group-hover:scale-110">
-                          <div className="blur-sm opacity-60 group-hover:blur-0 group-hover:opacity-100 transition-all duration-300">
+                          {/* UPDATED BLUR: set to 2px */}
+                          <div className="blur-[2px] opacity-70 group-hover:blur-none group-hover:opacity-100 transition-all duration-300">
                             {skill.icon}
                           </div>
                         </div>
                         <h4 className="text-slate-200 font-medium text-left">{skill.name}</h4>
                       </div>
+
                       <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[radial-gradient(circle_at_30%_30%,rgba(59,130,246,0.15),transparent_60%)]" />
                     </div>
                   </ScrollReveal>
