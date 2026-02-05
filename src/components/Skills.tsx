@@ -67,7 +67,6 @@ export function Skills() {
         { name: "GitHub", icon: <FaGithub className="w-8 h-8 text-slate-300" /> },
         { name: "VS Code", icon: <SiVscodium className="w-8 h-8 text-blue-500" /> },
         { name: "Figma", icon: <SiFigma className="w-8 h-8 text-pink-400" /> },
-        { name: "Git", icon: <FaGitAlt className="w-8 h-8 text-orange-500" /> },
       ],
     },
     {
