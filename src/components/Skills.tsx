@@ -19,8 +19,8 @@ export function Skills() {
       skills: [
         { name: "React.js", icon: <FaReact className="w-8 h-8 text-blue-400" /> },
         { name: "JavaScript", icon: <SiJavascript className="w-8 h-8 text-yellow-400" /> },
-        { name: "HTML5", icon: <SiHtml5 className="w-8 h-8 text-orange-500" /> },
-        { name: "CSS3", icon: <SiCss3 className="w-8 h-8 text-blue-500" /> },
+        { name: "HTML", icon: <SiHtml5 className="w-8 h-8 text-orange-500" /> },
+        { name: "CSS", icon: <SiCss3 className="w-8 h-8 text-blue-500" /> },
         { name: "Tailwind CSS", icon: <SiTailwindcss className="w-8 h-8 text-cyan-400" /> },
         { name: "Vite", icon: <SiVite className="w-8 h-8 text-purple-400" /> },
       ],
