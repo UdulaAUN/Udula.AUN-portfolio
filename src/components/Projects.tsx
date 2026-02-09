@@ -9,7 +9,7 @@ const projects = [
     tags: ['React', 'Tailwind CSS', 'TypeScript'],
     github: 'https://github.com/UdulaAUN/Portfolio.git',
     live: 'https://udula.dev', 
-    image: 'https://images.unsplash.com/photo-1557821552-17105176677c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
+    image: 'src/assets/projectImage/Udula.AUN.png'
   },
   {
     title: 'Servio',
