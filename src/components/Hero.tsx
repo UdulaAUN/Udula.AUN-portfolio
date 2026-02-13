@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Github, Linkedin, Instagram, Code2, Send } from 'lucide-react';
 
 // ✅ Import your profile image (important for Vercel)
-import profileImg from "../assets/profilePic/IMG_1938gg.JPG";
+import profileImg from "../assets/profilePic/IMG_1938gg.jpg";
 
 export function Hero() {
   const scrollToSection = (href: string) => {
