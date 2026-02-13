@@ -2,7 +2,6 @@ import React from 'react';
 import { ScrollReveal } from './ui/ScrollReveal';
 import { Github, ExternalLink, Figma } from 'lucide-react';
 
-
 import udulaImg from "../assets/projectImage/Udula.AUN.png";
 import servioImg from "../assets/projectImage/servio.png";
 import finoraImg from "../assets/projectImage/finora.png";
@@ -16,8 +15,8 @@ const projects = [
       'A modern, responsive portfolio website to showcase skills and projects with smooth animations.',
     tags: ['React', 'Tailwind CSS', 'TypeScript'],
     github: 'https://github.com/UdulaAUN/Portfolio.git',
-    live: 'https://udula.dev',
     image: udulaImg,
+    isCurrent: true, // Only Udula.AUN has the "Live Now" indicator
   },
   {
     title: 'Servio',
@@ -25,14 +24,14 @@ const projects = [
       'A full stack automotive platform with real time tracking and offline sync to streamline vehicle service management.',
     tags: ['React', 'Node.js', 'Express.js', 'Firebase', 'Tailwind CSS'],
     github: 'https://github.com/UdulaAUN/ServioCarService11.git',
-    image: servioImg,
+    image: servioImg, // Demo link removed
   },
   {
     title: 'Finora',
     description:
       'An intuitive personal finance manager app that empowers users to track spending and hit savings goals through detailed insights.',
     tags: ['Kotlin', 'Android Studio'],
-    github: 'https://github.com/UdulaAUN',
+    github: 'https://github.com/UdulaAUN/FinoraFinancial.git',
     image: finoraImg,
   },
   {
@@ -92,15 +91,32 @@ export function Projects() {
                     </h3>
 
                     <div className="flex items-center gap-3 shrink-0">
-                      {project.live && (
-                        <a
-                          href={project.live}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-3 py-1.5 bg-blue-500/10 hover:bg-blue-500 text-blue-400 hover:text-white rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-300 border border-blue-500/20"
+                      {/* Only Udula.AUN will show this because of the isCurrent flag */}
+                      {project.isCurrent ? (
+                        <div 
+                          className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full cursor-help" 
+                          title="You are currently viewing this project"
                         >
-                          Demo
-                        </a>
+                          <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                          </span>
+                          <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400">
+                            Live Now
+                          </span>
+                        </div>
+                      ) : (
+                        /* Standard Demo button - only shows if project.live exists */
+                        project.live && (
+                          <a
+                            href={project.live}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 px-3 py-1.5 bg-blue-500/10 hover:bg-blue-500 text-blue-400 hover:text-white rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-300 border border-blue-500/20"
+                          >
+                            Demo
+                          </a>
+                        )
                       )}
 
                       <a
@@ -108,17 +124,9 @@ export function Projects() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-slate-400 hover:text-white transition-colors p-1"
-                        aria-label={
-                          project.isFigma
-                            ? "View Figma Prototype"
-                            : "View Source"
-                        }
+                        aria-label={project.isFigma ? "View Figma Prototype" : "View Source"}
                       >
-                        {project.isFigma ? (
-                          <Figma size={20} />
-                        ) : (
-                          <Github size={20} />
-                        )}
+                        {project.isFigma ? <Figma size={20} /> : <Github size={20} />}
                       </a>
                     </div>
                   </div>
