@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, useInView, useAnimation } from 'framer-motion';
 
 interface ScrollRevealProps {
@@ -15,9 +15,24 @@ export const ScrollReveal = ({
   className = ''
 }: ScrollRevealProps) => {
   const ref = useRef(null);
+  
+  // Logic to check if mobile (standard mobile breakpoint is 768px)
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile(); // Check on mount
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const isInView = useInView(ref, {
-    once: false, // Animates every time
-    margin: '-100px' // Triggers slightly later for a better reveal effect
+    // If mobile, animate 'once' (true). If desktop, repeat (false).
+    once: isMobile, 
+    margin: '-100px'
   });
 
   const mainControls = useAnimation();
@@ -25,10 +40,11 @@ export const ScrollReveal = ({
   useEffect(() => {
     if (isInView) {
       mainControls.start('visible');
-    } else {
+    } else if (!isMobile) {
+      // Only reset to hidden if we are NOT on mobile
       mainControls.start('hidden');
     }
-  }, [isInView, mainControls]);
+  }, [isInView, mainControls, isMobile]);
 
   return (
     <div ref={ref} style={{ position: 'relative', width }} className={className}>
@@ -36,14 +52,14 @@ export const ScrollReveal = ({
         variants={{
           hidden: { 
             opacity: 0, 
-            scale: 0.9,      // Starts slightly smaller
-            filter: 'blur(10px)', // Starts blurry
-            y: 20            // Slight lift
+            scale: 0.9,
+            filter: 'blur(10px)',
+            y: 20
           },
           visible: { 
             opacity: 1, 
-            scale: 1,        // Grows to full size
-            filter: 'blur(0px)', // Clears up
+            scale: 1,
+            filter: 'blur(0px)',
             y: 0 
           }
         }}
@@ -52,7 +68,7 @@ export const ScrollReveal = ({
         transition={{
           duration: 0.7,
           delay: delay,
-          ease: [0.21, 1.11, 0.81, 0.99] // Custom "Back Out" cubic-bezier for a slight bounce
+          ease: [0.21, 1.11, 0.81, 0.99]
         }}
       >
         {children}
