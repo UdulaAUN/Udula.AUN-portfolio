@@ -88,8 +88,10 @@ export function Contact() {
               <InfoCard
                 icon={<Mail className="w-5 h-5 md:w-6 md:h-6 text-blue-400" />}
                 label="Email"
-                value="udulanethranjanaathulathmudali@gmail.com"
-                href="mailto:udulanethranjanaathulathmudali@gmail.com"
+                value="udulaathulathmudali.n@gmail.com"
+                
+
+                href="mailto:udulaathulathmudali.n@gmail.com"
               />
               <InfoCard
                 icon={<Phone className="w-5 h-5 md:w-6 md:h-6 text-blue-400" />}
