@@ -6,7 +6,7 @@ export function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="text-center md:text-left">
             <h3 className="text-2xl font-bold text-white mb-2">
-              Udula<span className="text-blue-500">.</span>
+              Udula<span className="text-blue-500">.</span>AUN
             </h3>
             <p className="text-slate-500 text-sm">
               Building digital experiences with passion and precision.
@@ -20,10 +20,7 @@ export function Footer() {
             &copy; {new Date().getFullYear()} Udula Athulathmudali. All rights
             reserved.
           </p>
-          <p className="flex items-center gap-1">
-            Made with <Heart size={14} className="text-red-500 fill-red-500" />{' '}
-            in React
-          </p>
+          
         </div>
       </div>
     </footer>;
