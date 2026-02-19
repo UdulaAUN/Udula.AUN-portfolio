@@ -13,11 +13,6 @@ export function Footer() {
             </p>
           </div>
 
-          <div className="flex items-center gap-6">
-            <SocialLink href="https://github.com/UdulaAUN" icon={<Github size={20} />} />
-            <SocialLink href="https://www.linkedin.com/in/udula-athulathmudali" icon={<Linkedin size={20} />} />
-            <SocialLink href="mailto:udulanethranjanaathulathmudali@gmail.com" icon={<Mail size={20} />} />
-          </div>
         </div>
 
         <div className="mt-12 pt-8 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-600">
