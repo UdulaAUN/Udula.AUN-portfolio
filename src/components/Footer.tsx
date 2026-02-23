@@ -7,8 +7,7 @@ export function Footer() {
           <div className="text-center md:text-left">
             <h3 className="text-2xl font-bold text-white mb-2">
               Udula<span className="text-blue-500">.</span>AUN
-                            Udula<span className="text-blue-500">.</span>AUN
-
+              
             </h3>
             <p className="text-slate-500 text-sm">
               Building digital experiences with passion and precision.
