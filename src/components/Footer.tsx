@@ -11,6 +11,7 @@ export function Footer() {
             </h3>
             <p className="text-slate-500 text-sm">
               Building digital experiences with passion and precision.
+            </p>
           </div>
 
         </div>
